@@ -53,7 +53,7 @@ struct StringLowerCase{T<:AbstractString} <: BoundString{T}
 
     function StringLowerCase{T}(x::AbstractString) where {T<:AbstractString}
         !all(x -> islowercase(x) || !isletter(x), x) && throw(ConstraintError{StringLowerCase}(
-            "some caharacters of \"$x\" must be in lowercase ($(join(x[findall(isuppercase, x)], ","))).")
+            "some characters of \"$x\" must be in lowercase ($(join(x[findall(isuppercase, x)], ","))).")
         )
         return new{T}(x)
     end
@@ -76,7 +76,7 @@ julia> StringUpperCase{String}("ABCDEF")
 
 julia> StringUpperCase{String}("AbCDeF")
 ERROR: ConstraintError: constraints of type StringUpperCase violated.
-Wrong value: some caharacters of "AbCDeF" must be in upercase (b,e).
+Wrong value: some characters of "AbCDeF" must be in uppercase (b,e).
 [...]
 ```
 """
@@ -85,7 +85,7 @@ struct StringUpperCase{T<:AbstractString} <: BoundString{T}
 
     function StringUpperCase{T}(x::AbstractString) where {T<:AbstractString}
         !all(x -> isuppercase(x) || !isletter(x), x) && throw(ConstraintError{StringUpperCase}(
-            "some caharacters of \"$x\" must be in upercase ($(join(x[findall(islowercase, x)], ","))).")
+            "some characters of \"$x\" must be in uppercase ($(join(x[findall(islowercase, x)], ","))).")
         )
         return new{T}(x)
     end
