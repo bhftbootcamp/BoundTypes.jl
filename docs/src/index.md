@@ -1,6 +1,6 @@
 # BoundTypes.jl
 
-The BoundTypes library helps you to seemlessly design and set rules for data types in your code, making it safer and more reliable.
+The BoundTypes library helps you to seamlessly design and set rules for data types in your code, making it safer and more reliable.
 
 ## Quickstart
 

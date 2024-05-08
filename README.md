@@ -8,7 +8,7 @@
 [![Coverage](https://codecov.io/gh/bhftbootcamp/BoundTypes.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/bhftbootcamp/BoundTypes.jl)
 [![Registry](https://img.shields.io/badge/registry-General-4063d8)](https://github.com/JuliaRegistries/General)
 
-The BoundTypes library helps you to seemlessly design and set rules for data types in your code, making it safer and more reliable.
+The BoundTypes library helps you to seamlessly design and set rules for data types in your code, making it safer and more reliable.
 
 ## Installation
 To install BoundTypes, simply use the Julia package manager:
