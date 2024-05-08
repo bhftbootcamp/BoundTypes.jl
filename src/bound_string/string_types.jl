@@ -44,7 +44,7 @@ julia> StringLowerCase{String}("abcdef")
 
 julia> StringLowerCase{String}("aBcdEf")
 ERROR: ConstraintError: constraints of type StringLowerCase violated.
-Wrong value: some caharacters of "aBcdEf" must be in lowercase (B,E).
+Wrong value: some characters of "aBcdEf" must be in lowercase (B,E).
 [...]
 ```
 """
