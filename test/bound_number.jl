@@ -154,38 +154,60 @@
 
         @test a + a    == 20.0
         @test a + 10.0 == 20.0
+        @test 10.0 + a == 20.0
         @test a + b    == 12.0
 
         @test a - a    == 0.0
         @test a - 10.0 == 0.0
+        @test 10.0 - a == 0.0
         @test a - b    == 8.0
 
         @test a * a    == 100.0
         @test a * 10.0 == 100.0
+        @test 10.0 * a == 100.0
         @test a * b    == 20.0
 
         @test a / a    == 1.0
         @test a / 10.0 == 1.0
+        @test 10.0 / a == 1.0
         @test a / b    == 5.0
 
         @test a ^ a    == 10000000000.0
         @test a ^ 10.0 == 10000000000.0
+        @test 10.0 ^ a == 10000000000.0
         @test a ^ b    == 100.0
 
         @test a == a
         @test a == 10.0
+        @test 10.0 == a
         @test a != b
         @test a > b
+        @test a > 2.0
+        @test 2.0 < a
         @test b <= a
 
-        @test div(a, b)  == 5.0
-        @test fld(a, b)  == 5.0
-        @test rem(a, b)  == 0.0
-        @test mod(a, b)  == 0.0
-        @test mod1(a, b) == 2.0
+        @test div(a, b)     == 5.0
+        @test div(10.0, b)  == 5.0
+        @test div(a, 2.0)   == 5.0
+        @test fld(a, b)     == 5.0
+        @test fld(10.0, b)  == 5.0
+        @test fld(a, 2.0)   == 5.0
+        @test rem(a, b)     == 0.0
+        @test rem(10.0, b)  == 0.0
+        @test rem(a, 2.0)   == 0.0
+        @test mod(a, b)     == 0.0
+        @test mod(10.0, b)  == 0.0
+        @test mod(a, 2.0)   == 0.0
+        @test mod1(a, b)    == 2.0
+        @test mod1(10.0, b) == 2.0
+        @test mod1(a, 2.0)  == 2.0
 
-        @test atan(a, b)  == atan(10.0, 2.0)
-        @test atand(a, b) == atand(10.0, 2.0)
+        @test atan(a, b)     == atan(10.0, 2.0)
+        @test atan(10.0, b)  == atan(10.0, 2.0)
+        @test atan(a, 2.0)   == atan(10.0, 2.0)
+        @test atand(a, b)    == atand(10.0, 2.0)
+        @test atand(10.0, b) == atand(10.0, 2.0)
+        @test atand(a, 2.0)  == atand(10.0, 2.0)
 
         @test isinf(a)   == false
         @test isnan(a)   == false

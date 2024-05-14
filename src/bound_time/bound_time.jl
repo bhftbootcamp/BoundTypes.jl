@@ -33,6 +33,8 @@ end
 
 for op in [:isless, :isequal, :(==)]
     @eval Base.$op(x::BoundTime, y::BoundTime) = $op(bound_value(x), bound_value(y))
+    @eval Base.$op(x::TimeType, y::BoundTime) = $op(x, bound_value(y))
+    @eval Base.$op(x::BoundTime, y::TimeType) = $op(bound_value(x), y)
 end
 
 for op in [:year, :month, :week, :day, :hour, :minute, :second, :millisecond, :microsecond, :nanosecond]
