@@ -171,8 +171,8 @@
         """
 
         @test to_csv([user]) == """
-        account_creation_date,age,bio,email,height_in_cm,is_email_verified,password,subscription_end_date,username,weight_in_kg
-        2023-01-15T14:22:00,25,Just a simple bio.,user123@example.com,175.5,true,Abc123!@#Def,2030-01-15T00:00:00,user123_,70.0
+        username,password,email,age,bio,height_in_cm,weight_in_kg,account_creation_date,subscription_end_date,is_email_verified
+        user123_,Abc123!@#Def,user123@example.com,25,Just a simple bio.,175.5,70.0,2023-01-15T14:22:00,2030-01-15T00:00:00,true
         """
 
         @test to_query(user) == """
@@ -220,108 +220,108 @@
           a::StringMaxLength{StringMinLength{StringLowerCase{String},10},20}
           b::Float64
       end
-      
+
       obj = StringAndFloat("1234567890a", 1)
-      
+
       json  = "{\"a\":\"1234567890a\",\"b\":1.0}"
       toml  = "a = \"1234567890a\"\nb = 1.0\n"
       csv   = "a,b\n1234567890a,1.0\n"
       query = "a=1234567890a&b=1.0"
       xml   = "<xml a=\"1234567890a\" b=\"1.0\"/>\n"
       yaml  = "a: \"1234567890a\"\nb: 1.0\n"
-      
+
       @test to_json(obj)  == json
       @test to_toml(obj)  == toml
       @test to_csv([obj]) == csv
       @test to_query(obj) == query
       @test to_xml(obj)   == xml
       @test to_yaml(obj)  == yaml
-      
+
       @test Serde.deser_json(StringAndFloat, json)   == obj
       @test Serde.deser_toml(StringAndFloat, toml)   == obj
       @test Serde.deser_csv(StringAndFloat, csv)[1]  == obj
       @test Serde.deser_query(StringAndFloat, query) == obj
       @test Serde.deser_xml(StringAndFloat, xml)     == obj
       @test Serde.deser_yaml(StringAndFloat, yaml)   == obj
-      
+
       struct StringAndNumber
           a::StringMaxLength{StringMinLength{StringLowerCase{String},10},20}
           b::NumberPositive{Float64}
       end
-      
+
       obj = StringAndNumber("1234567890a", 1)
-      
+
       json  = "{\"a\":\"1234567890a\",\"b\":1.0}"
       toml  = "a = \"1234567890a\"\nb = 1.0\n"
       csv   = "a,b\n1234567890a,1.0\n"
       query = "a=1234567890a&b=1.0"
       xml   = "<xml a=\"1234567890a\" b=\"1.0\"/>\n"
       yaml  = "a: \"1234567890a\"\nb: 1.0\n"
-      
+
       @test to_json(obj)  == json
       @test to_toml(obj)  == toml
       @test to_csv([obj]) == csv
       @test to_query(obj) == query
       @test to_xml(obj)   == xml
       @test to_yaml(obj)  == yaml
-      
+
       @test Serde.deser_json(StringAndNumber, json)   == obj
       @test Serde.deser_toml(StringAndNumber, toml)   == obj
       @test Serde.deser_csv(StringAndNumber, csv)[1]  == obj
       @test Serde.deser_query(StringAndNumber, query) == obj
       @test Serde.deser_xml(StringAndNumber, xml)     == obj
       @test Serde.deser_yaml(StringAndNumber, yaml)   == obj
-      
+
       struct StringsAndNumber
           a::StringMaxLength{StringMinLength{StringLowerCase{String},10},20}
           b::StringMinLength{String,5}
           c::NumberPositive{Float64}
       end
-      
+
       obj = StringsAndNumber("1234567890a", "asdfdasf", 1.0)
-      
+
       json  = "{\"a\":\"1234567890a\",\"b\":\"asdfdasf\",\"c\":1.0}"
       toml  = "a = \"1234567890a\"\nb = \"asdfdasf\"\nc = 1.0\n"
       csv   = "a,b,c\n1234567890a,asdfdasf,1.0\n"
       query = "a=1234567890a&b=asdfdasf&c=1.0"
       xml   = "<xml a=\"1234567890a\" b=\"asdfdasf\" c=\"1.0\"/>\n"
       yaml  = "a: \"1234567890a\"\nb: \"asdfdasf\"\nc: 1.0\n"
-      
+
       @test to_json(obj)  == json
       @test to_toml(obj)  == toml
       @test to_csv([obj]) == csv
       @test to_query(obj) == query
       @test to_xml(obj)   == xml
       @test to_yaml(obj)  == yaml
-      
+
       @test Serde.deser_json(StringsAndNumber, json)   == obj
       @test Serde.deser_toml(StringsAndNumber, toml)   == obj
       @test Serde.deser_csv(StringsAndNumber, csv)[1]  == obj
       @test Serde.deser_query(StringsAndNumber, query) == obj
       @test Serde.deser_xml(StringsAndNumber, xml)     == obj
       @test Serde.deser_yaml(StringsAndNumber, yaml)   == obj
-      
+
       struct TwoStrings
           a::StringMaxLength{StringMinLength{StringLowerCase{String},10},20}
           b::StringMinLength{String,5}
       end
-      
+
       obj = TwoStrings("1234567890a", "asdfdasf")
-      
+
       json  = "{\"a\":\"1234567890a\",\"b\":\"asdfdasf\"}"
       toml  = "a = \"1234567890a\"\nb = \"asdfdasf\"\n"
       csv   = "a,b\n1234567890a,asdfdasf\n"
       query = "a=1234567890a&b=asdfdasf"
       xml   = "<xml a=\"1234567890a\" b=\"asdfdasf\"/>\n"
       yaml  = "a: \"1234567890a\"\nb: \"asdfdasf\"\n"
-      
+
       @test to_json(obj)  == json
       @test to_toml(obj)  == toml
       @test to_csv([obj]) == csv
       @test to_query(obj) == query
       @test to_xml(obj)   == xml
       @test to_yaml(obj)  == yaml
-      
+
       @test Serde.deser_json(TwoStrings, json)   == obj
       @test Serde.deser_toml(TwoStrings, toml)   == obj
       @test Serde.deser_csv(TwoStrings, csv)[1]  == obj
@@ -334,31 +334,31 @@
           b::TimeBefore{TimeAfter{Date,Date(2020)},Date(2025)}
           c::TimeInterval{DateTime,DateTime(2020),<,<,DateTime(2025)}
       end
-      
+
       Serde.deser(::Type{BasicTimeTypes}, ::Type{Time}, x::String) = Time(x)
       Serde.deser(::Type{BasicTimeTypes}, ::Type{Date}, x::String) = Date(x)
       Serde.deser(::Type{BasicTimeTypes}, ::Type{DateTime}, x::String) = DateTime(x)
-      
+
       function Serde.deser(::Type{BasicTimeTypes}, ::Type{T}, x::String) where {T<:BoundTime}
           return T(Serde.deser(BasicTimeTypes, bound_type(T), x))
       end
-      
+
       obj = BasicTimeTypes(Time(15), Date(2023), DateTime(2024))
-      
+
       json  = "{\"a\":\"15:00:00\",\"b\":\"2023-01-01\",\"c\":\"2024-01-01T00:00:00\"}"
       toml  = "a = \"15:00:00\"\nb = \"2023-01-01\"\nc = \"2024-01-01T00:00:00\"\n"
       csv   = "a,b,c\n15:00:00,2023-01-01,2024-01-01T00:00:00\n"
       query = "a=15%3A00%3A00&b=2023-01-01&c=2024-01-01T00%3A00%3A00"
       xml   = "<xml a=\"15:00:00\" b=\"2023-01-01\" c=\"2024-01-01T00:00:00\"/>\n"
       yaml  = "a: \"15:00:00\"\nb: \"2023-01-01\"\nc: \"2024-01-01T00:00:00\"\n"
-      
+
       @test to_json(obj)  == json
       @test to_toml(obj)  == toml
       @test to_csv([obj]) == csv
       @test to_query(obj) == query
       @test to_xml(obj)   == xml
       @test to_yaml(obj)  == yaml
-      
+
       @test Serde.deser_json(BasicTimeTypes, json)   == obj
       @test Serde.deser_toml(BasicTimeTypes, toml)   == obj
       @test Serde.deser_csv(BasicTimeTypes, csv)[1]  == obj
