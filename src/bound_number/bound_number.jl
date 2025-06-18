@@ -27,6 +27,10 @@ for op in [:+, :-, :/, :*, :^]
     @eval Base.$op(x::BoundNumber, y::Number) = $op(bound_value(x), y)
 end
 
+for op in [:+, :-]
+    @eval Base.$op(x::BoundNumber) = $op(bound_value(x))
+end
+
 for op in [:isless, :isequal, :(==)]
     @eval Base.$op(x::BoundNumber, y::BoundNumber) = $op(bound_value(x), bound_value(y))
     @eval Base.$op(x::Number, y::BoundNumber) = $op(x, bound_value(y))
