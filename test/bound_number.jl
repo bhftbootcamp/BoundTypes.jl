@@ -248,8 +248,8 @@ end
 
         c = NumberInterval{Float64,-10.0,<,<=,30.0}(2.0)
         
-        @test -c = -2.0
-        @test +(c) = 2.0
+        @test -c === -2.0
+        @test +(c) === 2.0
     end
 
     @testset "Case №15: Dev struct BoundNumber" begin
