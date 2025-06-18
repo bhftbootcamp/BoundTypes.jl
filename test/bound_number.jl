@@ -1,4 +1,16 @@
 # test/numbers
+struct FloatBoundedByInt{T<:AbstractFloat} <: BoundNumber{T}
+    value::T
+
+    function FloatBoundedByInt(x::T, b::B) where {B<:Integer,T<:AbstractFloat}
+        -b <= x <= b || throw(
+            ConstraintError{FloatBoundedByInt}(
+                "$P value must be between $(-b)) and $b)",
+            ),
+        )
+        return new{T}(x)
+    end
+end
 
 @testset verbose = true "BoundNumber" begin
     @testset "Case №1: NumberPositive constructor" begin
@@ -233,5 +245,17 @@
         @test exp2(a)    == exp2(10.0)
         @test rad2deg(a) == rad2deg(10.0)
         @test deg2rad(a) == deg2rad(10.0)
+
+        c = NumberInterval{Float64,-10.0,<,<=,30.0}(2.0)
+        
+        @test -c === -2.0
+        @test +(c) === 2.0
+    end
+
+    @testset "Case №15: Dev struct BoundNumber" begin
+        a = FloatBoundedByInt(3.0, 10)
+
+        @test -a === -3.0
+        @test +a === 3.0
     end
 end
