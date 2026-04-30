@@ -19,7 +19,15 @@ Base.eltype(x::BoundNumber) = eltype(typeof(x))
 
 Base.convert(::Type{T}, x::BoundNumber) where {T<:Number} = T(bound_value(x))
 
-Base.tryparse(::Type{T}, x::String) where {T<:BoundNumber} = convert(T, (tryparse(bound_type(T), x)))
+function Base.tryparse(::Type{T}, x::String) where {T<:BoundNumber}
+    result = tryparse(bound_type(T), x)
+    result === nothing && return nothing
+    return try
+        convert(T, result)
+    catch
+        nothing
+    end
+end
 
 for op in [:+, :-, :/, :*, :^]
     @eval Base.$op(x::BoundNumber, y::BoundNumber) = $op(bound_value(x), bound_value(y))
